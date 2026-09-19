@@ -1,0 +1,50 @@
+{
+  "args": {
+    "input": "data/NanoJev/games_v4/data/scaled_games_v4b/policy",
+    "checkpoint_dir": "checkpoints/NanoJev",
+    "output_dir": "runs_mlx/policy_lora",
+    "steps": 6,
+    "batch_questions": 12,
+    "lr": 0.0001,
+    "lora_rank": 8,
+    "lora_alpha": 16.0,
+    "max_length": 8192,
+    "max_train": 0,
+    "seed": 17,
+    "backbone_chunk_paths": 4,
+    "eval_every": 5,
+    "save_every": 5,
+    "init_trainable": null
+  },
+  "log": [
+    {
+      "step": 1,
+      "loss": 0.6252675277646631
+    },
+    {
+      "step": 2,
+      "loss": 0.5716154831461608
+    },
+    {
+      "step": 3,
+      "loss": 0.5364633360877633
+    },
+    {
+      "step": 4,
+      "loss": 0.5028012510156259
+    },
+    {
+      "step": 5,
+      "loss": 0.47138031537178904,
+      "dev_nll": 0.6075642754634222
+    },
+    {
+      "step": 6,
+      "loss": 0.43956235726363957
+    }
+  ],
+  "best": {
+    "nll": 0.6075642754634222,
+    "step": 5
+  }
+}
