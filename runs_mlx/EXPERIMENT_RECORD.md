@@ -107,8 +107,14 @@ BF16 autocast，dev target cross-entropy 选最优。
 | maze ood 50×50 | 135 | 1 | 到达 | 96.0% |
 
 - 对照官方 50×50 展示（244 attempts / 36 碰撞 / 到达）：ours 135 attempts / 1 碰撞。
-  注意 pilot episode 与官方展示局未必同一种子，严格同局对比需同 seed；但 3/3、共 2 碰撞、
-  轨迹 atomic 96.3% 已证明题面分数转化成了真实行走能力（`runs_mlx/edges_maze_local_lora3.json`）。
+  已实锤同局：官方展示局即 `maze:ood:50:24310922`（`assets/arcade_data_manifest.json`
+  明确记录），三局苹果对苹果如下（同 seed、同 EdgeExplorer、同全预算）：
+
+| episode | 官方 local_atomic | 我方 MLX LoRA |
+|---|---|---|
+| maze test 8×8 | 21 attempts / 5 碰撞 / 到达 | **16 / 0** / 到达 |
+| maze test 16×16 | 37 / 5 / 到达 | **29 / 1** / 到达 |
+| maze ood 50×50 | 244 / 36 / 到达 | **135 / 1** / 到达 |
 - 147 次 predict 调用，全 MLX 本地零 API 花费。
 
 ## 复现命令（maze 获胜版本）
