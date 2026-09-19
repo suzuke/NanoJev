@@ -1,6 +1,6 @@
 # NanoJev — A nano replica of [Jev](https://typesafe.ai/blog/introducing-system-one-models-and-jev)
 
-**English** | [简体中文](README.zh-CN.md)
+**English** | [简体中文](README.zh-CN.md) | [繁體中文](README.zh-TW.md)
 
 **A 0.6B parallel decision model. States and questions in, complete probability distributions out—with zero output-token decoding.**
 
