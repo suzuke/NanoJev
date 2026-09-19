@@ -94,6 +94,23 @@ BF16 autocast，dev target cross-entropy 选最优。
 量化省下的流量补不回反量化计算。MLX 原生该吃的红利（Metal 后端、统一内存、懒求值）已经在吃了，
 剩下的速度杠杆是步数（dev 25 步攻顶）、batch 大小和换 GPU，不是精度。FP32 留着。
 
+### 4. 闭环验证：MLX 模型 + 官方 planner 跑真 maze ✅（3/3 到达）
+
+- `scripts/evaluate_mlx_edges_maze.py`：复用官方 `run_exploration` + `EdgeExplorer`
+  （边记忆、模型排序、已验证边 BFS 回位），engine 换成 MLX（local_lora3 best）。
+  输入 `results/rollout_pilot_episodes.jsonl`，`--max-steps 0`（预算 2×size²）：
+
+| episode | attempts | collisions | 结果 | 轨迹 atomic acc |
+|---|---|---|---|---|
+| maze test 8×8 | 16 | 0 | 到达 | 98.4% |
+| maze test 16×16 | 29 | 1 | 到达 | 96.4% |
+| maze ood 50×50 | 135 | 1 | 到达 | 96.0% |
+
+- 对照官方 50×50 展示（244 attempts / 36 碰撞 / 到达）：ours 135 attempts / 1 碰撞。
+  注意 pilot episode 与官方展示局未必同一种子，严格同局对比需同 seed；但 3/3、共 2 碰撞、
+  轨迹 atomic 96.3% 已证明题面分数转化成了真实行走能力（`runs_mlx/edges_maze_local_lora3.json`）。
+- 147 次 predict 调用，全 MLX 本地零 API 花费。
+
 ## 复现命令（maze 获胜版本）
 
 ```bash
